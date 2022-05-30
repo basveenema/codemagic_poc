@@ -1,0 +1,15 @@
+workflows:
+  hello-world:
+    name: Hello world workflow
+    scripts:
+        - name: hello
+          script: |
+            set -e # exit on first failed command
+
+            cd $ANDROID_HOME/tools
+            emulator -avd emulator &
+            adb wait-for-device
+        - name: Flutter unit tests
+          script: |
+            cd . && flutter test
+          ignore_failure: true
